@@ -49,7 +49,7 @@ function fetchCoinSymbols(pageNumber) {
         });
         dispatch(receiveCoinSymbols(coins))
         if(pageNumber == 0){
-          dispatch(subscribeCoins(coins.slice(0, 15).map(coin => coin.Name)));
+          dispatch(subscribeCoins(coins.slice(0, 10).map(coin => coin.Name)));
 
           setTimeout(() => {
             dispatch(doSubscribeCoins(getState().subscriptions));
@@ -74,17 +74,11 @@ function shouldFetchCoinSymbols(pageNumber, state) {
 
 export function fetchCoinSymbolsIfNeeded(pageNumber) {
     return (dispatch, getState) => {
-        dispatch(doUnsubscribeCoins());
+        // dispatch(doUnsubscribeCoins());
         dispatch(updateCurrentPageNumber(pageNumber));
         if (shouldFetchCoinSymbols(pageNumber, getState())) {
             return dispatch(fetchCoinSymbols(pageNumber))
         } else {
-          if(pageNumber == 0){
-            dispatch(subscribeCoins(getState().coinNames.slice(pageNumber * PAGE_LENGTH, (pageNumber * PAGE_LENGTH) + PAGE_LENGTH).slice(0, 15)));
-            setTimeout(() => {
-              dispatch(doSubscribeCoins(getState().subscriptions));
-            }, 2000)  
-          }
           
             return Promise.resolve()
         }
@@ -131,15 +125,10 @@ function fetchCoin(coinSymbol) {
 
 export function fetchCoinIfNeeded(coinSymbol) {
     return (dispatch, getState) => {
-        dispatch(doUnsubscribeCoins());
+        // dispatch(doUnsubscribeCoins());
         if (!getState().isFetching && !getState().coins[coinSymbol]) {
             return dispatch(fetchCoin(coinSymbol))
         } else {
-          dispatch(subscribeCoins([coinSymbol]));
-
-          setTimeout(() => {
-            dispatch(doSubscribeCoins([coinSymbol]));
-          }, 100)  
         }
     }
 }
