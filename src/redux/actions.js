@@ -129,6 +129,13 @@ export function fetchCoinIfNeeded(coinSymbol) {
         if (!getState().isFetching && !getState().coins[coinSymbol]) {
             return dispatch(fetchCoin(coinSymbol))
         } else {
+          if(!getState().subscriptions.includes(coinSymbol)){
+            dispatch(subscribeCoins([coinSymbol]));
+
+            setTimeout(() => {
+              dispatch(doSubscribeCoins([coinSymbol]));
+            }, 100)  
+          }
         }
     }
 }
