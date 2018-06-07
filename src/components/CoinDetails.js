@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { CardHeader } from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 const Helpers = require("../helpers.js");
 
 function CoinDetails(props){
@@ -23,6 +24,9 @@ function CoinDetails(props){
                         </Typography>
                     </div>
                 </div>
+                <Hidden mdUp>
+                    <div style={{width: '200px'}}></div>
+                </Hidden>
                 <div className={classes.item}>  
                     <Typography variant="subheading" color="textSecondary" >
                         Price
@@ -31,6 +35,9 @@ function CoinDetails(props){
                         $ {coin.PRICE_INFO.PRICE}            
                     </Typography> 
                 </div>
+                <Hidden smUp>
+                    <div style={{width: '100px', backgroundColor: 'white'}}></div>
+                </Hidden>
                 <div className={classes.item}>  
                     <Typography variant="subheading" color="textSecondary">
                         Vol 24H
@@ -39,6 +46,9 @@ function CoinDetails(props){
                         {Helpers.formatLongNumber('$', coin.PRICE_INFO.VOLUME24HOURTO)}       
                     </Typography> 
                 </div>
+                <Hidden smUp>
+                    <div style={{width: '50px', backgroundColor: 'white'}}></div>
+                </Hidden>
                 <div className={classes.item}>  
                     <Typography variant="subheading" color="textSecondary">
                         Market Cap
