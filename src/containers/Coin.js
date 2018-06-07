@@ -103,7 +103,7 @@ class Coin extends Component {
     let currentMarketData = marketData[this.props.match.params.coin.toUpperCase()];
     return (
       <div>
-        {isFetching && <CircularProgress />}
+        {isFetching && <div style={{marginTop: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CircularProgress style={{color: '#f4a261'}}/></div>}
         {(!isFetching && currentCoin && Object.keys(currentCoin).length > 0) &&
         (
           <div>

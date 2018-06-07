@@ -25,7 +25,7 @@ class Home extends Component {
     })
     return (
       <div>
-        {isFetching && <CircularProgress />}
+        {isFetching && <div style={{marginTop: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CircularProgress style={{color: '#f4a261'}}/></div>}
         {!isFetching && coinNames.length > 0 && <CoinTable onClick={() => {}} pageNumber={currentPageNumber} coins={arrayOfCoins.slice(currentPageNumber * PAGE_LENGTH, (currentPageNumber * PAGE_LENGTH) + PAGE_LENGTH)}/>}
         {currentPageNumber > 0 && !isFetching && 
             <PrevPageButton onClick={() => {dispatch(fetchCoinSymbolsIfNeeded(currentPageNumber - 1)); window.scrollTo(0,0)}} />
