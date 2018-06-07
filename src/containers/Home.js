@@ -26,11 +26,11 @@ class Home extends Component {
     return (
       <div>
         {isFetching && <CircularProgress />}
-        {!isFetching && coinNames.length > 0 && <CoinTable onClick={() => {dispatch(doUnsubscribeCoins());}} pageNumber={currentPageNumber} coins={arrayOfCoins.slice(currentPageNumber * PAGE_LENGTH, (currentPageNumber * PAGE_LENGTH) + PAGE_LENGTH)}/>}
+        {!isFetching && coinNames.length > 0 && <CoinTable onClick={() => {}} pageNumber={currentPageNumber} coins={arrayOfCoins.slice(currentPageNumber * PAGE_LENGTH, (currentPageNumber * PAGE_LENGTH) + PAGE_LENGTH)}/>}
         {currentPageNumber > 0 && !isFetching && 
-            <PrevPageButton onClick={() => {dispatch(fetchCoinSymbolsIfNeeded(currentPageNumber - 1)); dispatch(doUnsubscribeCoins()); window.scrollTo(0,0)}} />
+            <PrevPageButton onClick={() => {dispatch(fetchCoinSymbolsIfNeeded(currentPageNumber - 1)); window.scrollTo(0,0)}} />
         }
-        {!isFetching && <NextPageButton onClick={() => {dispatch(fetchCoinSymbolsIfNeeded(currentPageNumber + 1)); dispatch(doUnsubscribeCoins()); window.scrollTo(0,0)}} />}
+        {!isFetching && <NextPageButton onClick={() => {dispatch(fetchCoinSymbolsIfNeeded(currentPageNumber + 1)); window.scrollTo(0,0)}} />}
       </div>
     )
   }

@@ -48,12 +48,13 @@ function fetchCoinSymbols(pageNumber) {
           return result;
         });
         dispatch(receiveCoinSymbols(coins))
-        // dispatch(subscribeCoins(coins.map(coin => coin.Name)));
+        if(pageNumber == 0){
+          dispatch(subscribeCoins(coins.slice(0, 15).map(coin => coin.Name)));
 
-        setTimeout(() => {
-          // dispatch(doSubscribeCoins(getState().subscriptions));
-        }, 2000)
-
+          setTimeout(() => {
+            dispatch(doSubscribeCoins(getState().subscriptions));
+          }, 2000)
+        }
       })
   }
 }
@@ -73,10 +74,18 @@ function shouldFetchCoinSymbols(pageNumber, state) {
 
 export function fetchCoinSymbolsIfNeeded(pageNumber) {
     return (dispatch, getState) => {
+        dispatch(doUnsubscribeCoins());
         dispatch(updateCurrentPageNumber(pageNumber));
         if (shouldFetchCoinSymbols(pageNumber, getState())) {
             return dispatch(fetchCoinSymbols(pageNumber))
         } else {
+          if(pageNumber == 0){
+            dispatch(subscribeCoins(getState().coinNames.slice(pageNumber * PAGE_LENGTH, (pageNumber * PAGE_LENGTH) + PAGE_LENGTH).slice(0, 15)));
+            setTimeout(() => {
+              dispatch(doSubscribeCoins(getState().subscriptions));
+            }, 2000)  
+          }
+          
             return Promise.resolve()
         }
     }
@@ -111,20 +120,27 @@ function fetchCoin(coinSymbol) {
         coin.Supply = json.Data[0].ConversionInfo.Supply;
         dispatch(receiveCoin(coin))  
 
-        // dispatch(subscribeCoins([coin]));
+        dispatch(subscribeCoins([coin]));
 
         setTimeout(() => {
-          // dispatch(doSubscribeCoins([coin.Name]));
-        }, 2000)  
+          dispatch(doSubscribeCoins([coin.Name]));
+        }, 100)  
       })
   }
 }
 
 export function fetchCoinIfNeeded(coinSymbol) {
     return (dispatch, getState) => {
+        dispatch(doUnsubscribeCoins());
         if (!getState().isFetching && !getState().coins[coinSymbol]) {
             return dispatch(fetchCoin(coinSymbol))
-        } 
+        } else {
+          dispatch(subscribeCoins([coinSymbol]));
+
+          setTimeout(() => {
+            dispatch(doSubscribeCoins([coinSymbol]));
+          }, 100)  
+        }
     }
 }
 
@@ -242,7 +258,7 @@ function doSubscribeCoins(coinSymbols) {
   }
 }
 
-export function doUnsubscribeCoins(coinSymbols) {
+export function doUnsubscribeCoins() {
   return (dispatch, getState) => {
     const subscriptions = getState().subscriptions.map(coin => {return '5~CCCAGG~' + coin + '~USD'})
     socket.emit('SubRemove', { subs: subscriptions });

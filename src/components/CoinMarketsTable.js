@@ -39,10 +39,10 @@ function CoinMarketsTable(props){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {markets.map(coin => {
+                {markets.map((coin, index) => {
                     if(coin.VOLUME24HOURTO){
                         return (
-                        <TableRow key={coin.Name} className={classes.tableRow} >
+                        <TableRow key={index} className={classes.tableRow} >
                             
                             <TableCell numeric style={{textAlign: 'left'}} >
                                 {coin.MARKET}

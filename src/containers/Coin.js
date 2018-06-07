@@ -22,12 +22,10 @@ class Coin extends Component {
     this.state = {
       selectedChartIndex: 0
     }
-    console.log("CONSTRUCTED BITCHES")
 
   }
   
   componentDidMount() {
-    console.log("MOUNTED BITCHES")
     const { dispatch } = this.props
     const coinSymbol = this.props.match.params.coin.toUpperCase();
     dispatch(fetchCoinIfNeeded(coinSymbol))
@@ -103,7 +101,6 @@ class Coin extends Component {
     let currentCoin = coins[this.props.match.params.coin.toUpperCase()];
     let currentHistoryData = this.getCurrentCoinData()
     let currentMarketData = marketData[this.props.match.params.coin.toUpperCase()];
-    console.log(this.props);
     return (
       <div>
         {isFetching && <CircularProgress />}
@@ -113,7 +110,7 @@ class Coin extends Component {
             <CoinDetails coin={currentCoin} />
 
                 <div>
-                  <Tabs value={this.state.selectedChartIndex} indicatorColor='#2a9d8f' scrollable scrollButtons="off" onChange={this.handleChartChange}>
+                  <Tabs value={this.state.selectedChartIndex} primary='#2a9d8f' scrollable scrollButtons="off" onChange={this.handleChartChange}>
                     <Tab label="1 Hour" />
                     <Tab label="24 Hours" />
                     <Tab label="1 Week" />

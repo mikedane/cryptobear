@@ -65,7 +65,6 @@ function formatLongNumber(numericSymbol, value) {
         return baseUrl + 'histohour?aggregate=6&limit=120&tsym=USD&fsym=' + coinSymbol.toUpperCase();
           break;
       case "hour":
-          console.log(baseUrl + 'histominute?aggregate=1&limit=60&tsym=USD&fsym=' + coinSymbol.toUpperCase())
           return baseUrl + 'histominute?aggregate=1&limit=60&tsym=USD&fsym=' + coinSymbol.toUpperCase();
           break;
       case "year":

@@ -57,7 +57,6 @@ class SearchBar extends React.Component {
             suggestions: [],
             highlightedSuggestion: ""
           };
-          console.log(this.props)
       this.handleSuggestionHighlighted = this.handleSuggestionHighlighted.bind(this);
     }
 
