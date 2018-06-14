@@ -12,7 +12,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { PAGE_LENGTH } from '../redux/actions'
 const Helpers = require("../helpers.js");
 
-
+const currentDate = Date.now();
 function CoinTable(props){
     const { coins, classes, pageNumber, onClick } = props;
     const imageRootUrl = 'https://www.cryptocompare.com/';
@@ -96,7 +96,7 @@ function CoinTable(props){
 }
 
 function getCoinChartUrl(fromSym, toSym){
-    return 'https://images.cryptocompare.com/sparkchart/' + fromSym + '/' + toSym + '/latest.png?ts=' + Date.now();
+    return 'https://images.cryptocompare.com/sparkchart/' + fromSym + '/' + toSym + '/latest.png?ts=' + currentDate;
 }
 
 const styles = theme => ({
