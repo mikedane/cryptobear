@@ -35,7 +35,7 @@ function updateCurrentPageNumber(currentPageNumber) {
 function fetchCoinSymbols(pageNumber) {
   return (dispatch, getState) => {
     dispatch(requestCoinSymbols(pageNumber))
-    return fetch('https://min-api.cryptocompare.com/data/top/totalvol?tsym=USD&limit='+ PAGE_LENGTH+'&page=' + pageNumber)
+    return fetch('https://min-api.cryptocompare.com/data/top/totalvol?tsym=USDT&limit='+ PAGE_LENGTH+'&page=' + pageNumber)
       .then(response => response.json())
       .then(json => {
         let coins = json.Data.map((coin, index) => {
@@ -105,7 +105,7 @@ function fetchCoin(coinSymbol) {
   return dispatch => {
     dispatch(requestCoin(coinSymbol))
     
-    return fetch('https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms='+ coinSymbol.toUpperCase() +'&tsym=USD')
+    return fetch('https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms='+ coinSymbol.toUpperCase() +'&tsym=USDT')
       .then(response => response.json())
       .then(json => {
         let coin = json.Data[0].CoinInfo;
@@ -198,7 +198,7 @@ function receiveMarketData(coinSymbol, marketData) {
 function fetchMarketData(coinSymbol) {
   return dispatch => {
     dispatch(requestMarketData())
-    return fetch('https://min-api.cryptocompare.com/data/top/exchanges/full?limit=1000&fsym=' + coinSymbol.toUpperCase() + '&tsym=USD')
+    return fetch('https://min-api.cryptocompare.com/data/top/exchanges/full?limit=1000&fsym=' + coinSymbol.toUpperCase() + '&tsym=USDT')
       .then(response => response.json())
       .then(json => {
         let marketData = json.Data.Exchanges;
@@ -249,14 +249,14 @@ function doSubscribeCoins(coinSymbols) {
         dispatch(receivePriceInfo(unpackedData, unpackedData.FROMSYMBOL));
       }
     });
-    const subscriptions = coinSymbols.map(coin => {return '5~CCCAGG~' + coin + '~USD'})
+    const subscriptions = coinSymbols.map(coin => {return '5~CCCAGG~' + coin + '~USDT'})
     socket.emit('SubAdd', { subs: subscriptions });
   }
 }
 
 export function doUnsubscribeCoins() {
   return (dispatch, getState) => {
-    const subscriptions = getState().subscriptions.map(coin => {return '5~CCCAGG~' + coin + '~USD'})
+    const subscriptions = getState().subscriptions.map(coin => {return '5~CCCAGG~' + coin + '~USDT'})
     socket.emit('SubRemove', { subs: subscriptions });
     dispatch(unsubscribeCoins())
   }
