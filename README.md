@@ -3,4 +3,4 @@ Crypto Bear is a minimal, no fuss crypto-currency tracker. We track all of the m
 
 The website features a minimal design and an easy to use search function to help you find anything you need. 
 
-The site is built using [React](https://reactjs.org/) and [Material-UI](https://material-ui-next.com/), and is fully mobile optimized. 
+The site is built and managed using [React](https://reactjs.org/) and [Material-UI](https://material-ui-next.com/), and is fully mobile optimized. 
